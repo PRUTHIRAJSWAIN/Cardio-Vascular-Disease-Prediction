@@ -1,10 +1,10 @@
 # Cardio-Vascular-Disease-Prediction
 
-Source of Dataset:Kaggle
-Data shape: 70000*13
+Source of Dataset:Kaggle<br/>
+Data shape: 70000*13<br/>
 
-Features:
-        id                          :id of the patient
+# Features:
+        id                          :id of the patient <br/>
         Age                         :age of the patient in days
         Gender                      :Male or Female
         Height                      :Height in cm
@@ -16,11 +16,11 @@ Features:
         Smoke                       :Does the patient smoke
         Alcohol                     :Does the patient consume alcohol
         Active                      :is he/she physically active
-Target Variable 
+# Target Variable 
         Cardio                      :if the person has Cardio Vascular disease or not
         
         
-Applied Algorithms:
+# Applied Algorithms:
     Support Vector Machine
     Random Forest
     Gaussian Naive Bayes
