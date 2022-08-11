@@ -4,7 +4,7 @@ Source of Dataset:Kaggle<br/>
 Data shape: 70000*13<br/>
 
 # Features:
-        id                          :id of the patient <br/>
+        id                          :id of the patient 
         Age                         :age of the patient in days
         Gender                      :Male or Female
         Height                      :Height in cm
