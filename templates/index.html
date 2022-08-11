@@ -2,170 +2,234 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
     <title>Title</title>
+    <style>
+        .container{
+            position: relative;
+
+            width: 405px;
+            margin: auto;
+            padding: 60px 60px;
+            background: url(https://i.pinimg.com/originals/d2/44/c3/d244c3fae9ee68039d99003e24c3316e.jpg) no-repeat   center center #505050;
+            background-size: cover;
+            box-shadow: 0px 30px 60px -5px #000;
+        }
+        input{
+            border: none;
+            width: 89%;
+            padding: 10px 20px;
+            display: block;
+            height: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0);
+            overflow: hidden;
+            margin-top: 15px;
+            transition: all 0.5s ease-in-out;
+            color:white;
+        }
+        .button{
+              background-color: #1161ed;
+              color: #FFF;
+              width: 100%;
+              padding: 10px 20px;
+              display: block;
+              height: 39px;
+              border-radius: 20px;
+              margin-top: 30px;
+              transition: all 0.2s ease-in-out;
+              border: none;
+              text-transform: uppercase;
+        }
+        .button:hover{
+          background: #4082f5;
+          box-shadow: 0px 4px 35px -5px #4082f5;
+          cursor: pointer;
+        }
+
+        span {
+          text-transform: uppercase;
+          font-size: 15px;
+          opacity: 0.8;
+          display: inline-block;
+          position: relative;
+          top: 5px;
+          transition: all 0.5s ease-in-out;
+          color:white;
+        }
+
+        .result {
+          display: inline-block;
+          position: relative;
+          top: 5px;
+          color:Black;
+        }
+
+
+    </style>
 </head>
-<body bgcolor="#d6d4e0">
-<h1>Headings</h1>
-<div class="container">
+<body>
+		<div class="container">
+            <form action="{{url_for('result')}}" method="POST" name="form" onsubmit="return validateform()">
+                <div class="row">
+                    <div class="col1">
+                        <label for="idAge"><span>Age (In Days)</span></label>
+                    </div>
+                    <div class="col2">
+                        <input id="idAge" name="nameAge" type="text">
+                    </div>
+                </div>
 
-    <form action="{{ url_for('pr')}}"method="post">
-        <div class="row">
-            <div class="col1">
-                <label for="PropertySelected">Property Type</label>
-            </div>
-            <div class="col2">
-                <select name="p" id="PropertySelected">
-                {% for i in features.Property_Type%}
-                    <option value="{{i}}">{{i}}</option>>
-                {%endfor%}
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="area">Property Area:</label>
-            </div>
-            <div class="col2">
+                <div class="row">
+                    <div class="col1">
+                        <label for="idHeight"><span>Height (In Centimeter)</span></label>
+                    </div>
+                    <div class="col2">
+                        <input id="idHeight" name="nameHeight" type="text">
+                    </div>
+                </div>
 
-                <input type="text" id="area" name="a" placeholder="Area of of Property">
-                {% if features.AreaValid==False%}
-                    <p>Only Positive Value</p>
-                {%endif%}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="NumWindows">Number of Windows:</label>
-            </div>
-            <div class="col2">
-                <select name="nw" id="NumWindows">
-                {% for i in features.Number_of_Windows%}
-                    <option value="{{i}}">{{i}}</option>>
-                {%endfor%}
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="NumberofDoors">Number of Doors:</label>
-            </div>
-            <div class="col2">
-                <select name="nd" id="NumberofDoors">
-                {% for i in features.Number_of_Doors%}
-                    <option value="{{i}}">{{i}}</option>>
-                {%endfor%}
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="Furnishing">Furnishing:</label>
-            </div>
-            <div class="col2">
-                <select name="f" id="Furnishing">
-                {% for i in features.Furnishing%}
-                    <option value="{{i}}">{{i}}</option>>
-                {%endfor%}
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="FrequencyofPC">No of Powercuts per Week:</label>
-            </div>
-            <div class="col2">
-                <select name="pc" id="FrequencyofPC">
-                {% for i in features.Number_of_Powercuts%}
-                    <option value="{{i}}">{{i}}</option>>
-                {%endfor%}
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="PowerBackup">Power Backup:</label>
-            </div>
-            <div class="col2">
-                <input type="checkbox" id="PowerBackup" name="pb">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="WaterSupply">Water Supply:</label>
-            </div>
-            <div class="col2">
-                <select name="w" id="WaterSupply">
-                {% for i in features.Water_supply%}
-                    <option value="{{i}}">{{i}}</option>>
-                {%endfor%}
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="Traficscore">Trafic Density Score:</label>
-            </div>
-            <div class="col2">
-                <input type="text" id="traficscore" name="t" placeholder="traficdesityscore">
-                {% if features.TrafficValid==False%}
-                <p>Enter Number betwwen range</p>
-                {%endif%}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="Crimerate">Crime Rate</label>
-            </div>
-            <div class="col2">
-                <select name="c" id="Crimerate">
-                {%for i in features.crime_rate%}
-                     <option value="{{i}}">{{i}}</option>>
-                {%endfor%}
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="dust">Dust and Noise:</label>
-            </div>
-            <div class="col2">
-                <select name="dust" id="dust">
-                {%for i in features.dustAndnoise%}
-                    <option value="{{i}}">{{i}}</option>>
-                {%endfor%}
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="air">Air Quality Index:</label>
-            </div>
-            <div class="col2">
-                <input type="text" id="air" name="air">
-                {% if features.AirValid==False%}
-                <p>Enter valid number</p>
-                {%endif%}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col1">
-                <label for="neigh">Neighborhood Review:</label>
-            </div>
-            <div class="col2">
-                <input type="text" id="neigh" name="n">
-                {% if features.NebValid ==False%}
-                <p>Enter valid number</p>
-                {% endif %}
-            </div>
-        </div>
+                <div class="row">
+                    <div class="col1">
+                        <label for="idWeight"><span>Weight (In K.G)</span></label>
+                    </div>
+                    <div class="col2">
+                        <input id="idWeight" name="nameWeight" type="text">
+                    </div>
+                </div>
 
-      <input type="submit" value="Predict" class="row">
-    </form>
-    {%if features.ScoreAvailable==True%}
-    <h1>Habituality score is :{{ans}}</h1>
-    {%endif%}
-    <h1>Habituality score is :{{ans}}</h1>
-</div>
+                <div class="row">
+                    <div class="col1">
+                        <label for="idAp_hi"><span>Systolic Blood Pressure</span></label>
+                    </div>
+                    <div class="col2">
+                        <input id="idAp_hi" name="nameAp_hi" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col1">
+                        <label for="idAp_lo"><span>Diastolic Blood Pressure</span></label>
+                    </div>
+                    <div class="col2">
+                        <input id="idAp_lo" name="nameAp_lo" type="text">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col1">
+                        <label for="idCholestrol"><span>Cholestrol</span></label>
+                    </div>
+                    <div class="col2">
+                        <select id="idCholestrol" name="nameCholestrol" >
+                            <option value="1">Low</option>
+                            <option value="2">Normal</option>
+                            <option value="3">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col1">
+                        <label for="idGlucose"><span>Glucose</span></label>
+                    </div>
+                    <div class="col2">
+                        <select id="idGlucose" name="nameGlucose" >
+                            <option value="1">Low</option>
+                            <option value="2">Normal</option>
+                            <option value="3">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col1">
+                        <label for="idGender"><span>Gender</span></label>
+                    </div>
+                    <div class="col2">
+                        <select id="idGender" name="nameGender" >
+                            <option value="0">Female</option>
+                            <option value="1">Male</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col1">
+                        <label for="idSmoke"><span>Smoke</span></label>
+                    </div>
+                    <div class="col2">
+                        <input type="checkbox" id="idSmoke" name="nameSmoke">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col1">
+                        <label for="idAlcohol"><span>Alcohol</span></label>
+                    </div>
+                    <div class="col2">
+                        <input type="checkbox" id="idAlcohol" name="nameAlcohol">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col1">
+                        <label for="idActive"><span>Active</span></label>
+                    </div>
+                    <div class="col2">
+                        <input type="checkbox" id="idActive" name="nameActive">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <input type="submit" value="Predict" class="button">
+                </div>
+
+            </form>
+		</div>
+        <h1 style="text-align:center;">{{score}}</h1>
+
+    <script>
+        function validateform(){
+            var age=document.form.nameAge.value;
+            var height=document.form.nameHeight.value;
+            var weight=document.form.nameWeight.value;
+            var aph=document.form.nameAp_hi.value;
+            var apl=document.form.nameAp_lo.value;
+            var message="Invalid";
+            var ok=true;
+            if(age==null || age==""  || age<=0 || age>100)
+            {
+                ok=false;
+                message+=" Age Value";
+            }
+            if(height==null || height=="" || height<=30 || height>220)
+            {
+                ok=false;
+                message+=" Height Value";
+            }
+            if(weight==null || weight=="" || weight<=0 || weight>300)
+            {
+                ok=false;
+                message+=" Weight Value";
+            }
+            if(aph==null || aph==""  || aph<=-150 || aph>20000)
+            {
+                ok=false;
+                message+=" Systolic Value";
+            }
+            if(apl==null || apl==""  || apl<=-150 || apl>20000)
+            {
+                ok=false;
+                message+=" Diastolic Value";
+            }
+            if(ok==false)
+               {
+               alert(message);
+               }
+            return ok;
+
+        }
+    </script>
 </body>
 </html>
